@@ -20,7 +20,10 @@ namespace csharp
 
             Program.Main(new string[] { });
             String output = fakeoutput.ToString();
-            Approvals.Verify(output);
+            using (var reader = new StreamReader(new FileStream("ApprovalTest.ThirtyDays.received.txt", FileMode.Open)))
+            {
+                Approvals.AssertEquals(reader.ReadToEnd(), output);
+            }
         }
     }
 }
